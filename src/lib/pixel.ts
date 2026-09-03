@@ -30,9 +30,10 @@ export function initMetaPixel() {
   })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
   /* eslint-enable */
 
-  window.fbq?.("init", id);
-  window.fbq?.("track", "PageView");
-  window.fbq?.("track", "ViewContent", { content_name: "Limpeza de Pele" });
+  const fbq = window.fbq as ((...args: unknown[]) => void) | undefined;
+  fbq?.("init", id);
+  fbq?.("track", "PageView");
+  fbq?.("track", "ViewContent", { content_name: "Limpeza de Pele" });
 }
 
 /** Evento principal de conversão: clique no WhatsApp. */
