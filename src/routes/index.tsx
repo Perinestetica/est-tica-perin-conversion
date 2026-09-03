@@ -1,24 +1,566 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+import heroImg from "@/assets/hero-skin.jpg";
+import procedureImg from "@/assets/procedure.jpg";
+import professionalImg from "@/assets/professional.jpg";
+import clinicImg from "@/assets/clinic.jpg";
+import antesImg from "@/assets/antes.jpg";
+import depoisImg from "@/assets/depois.jpg";
+
+import { CtaWhatsapp, FloatingWhatsapp } from "@/components/CtaWhatsapp";
+import { Reveal } from "@/components/Reveal";
+import { siteConfig } from "@/lib/site-config";
+import { initMetaPixel } from "@/lib/pixel";
+
+const DESCRIPTION =
+  "Cuide da sua pele com atendimento personalizado na Estética Perin, em Santo André. Fale pelo WhatsApp e consulte horários e condições para limpeza de pele.";
+
 export const Route = createFileRoute("/")({
-  component: Index,
+  component: LandingPage,
+  head: () => ({
+    meta: [
+      { title: "Limpeza de Pele em Santo André | Estética Perin" },
+      { name: "description", content: DESCRIPTION },
+      { property: "og:title", content: "Limpeza de Pele em Santo André | Estética Perin" },
+      { property: "og:description", content: DESCRIPTION },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/" },
+      { name: "twitter:title", content: "Limpeza de Pele em Santo André | Estética Perin" },
+      { name: "twitter:description", content: DESCRIPTION },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BeautySalon",
+          name: "Estética Perin",
+          description: DESCRIPTION,
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Santo André",
+            addressRegion: "SP",
+            addressCountry: "BR",
+          },
+          areaServed: "Santo André - SP",
+          telephone: "+5511976855329",
+          makesOffer: {
+            "@type": "Offer",
+            itemOffered: { "@type": "Service", name: "Limpeza de pele" },
+          },
+        }),
+      },
+    ],
+  }),
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+const problemas = [
+  "Pele oleosa",
+  "Cravos e impurezas",
+  "Poros aparentes",
+  "Pele sem viço",
+  "Aspecto cansado",
+  "Sensação de pele pesada",
+];
+
+const beneficios = [
+  {
+    icone: "🫧",
+    titulo: "Remove impurezas",
+    texto: "Ajuda a eliminar o excesso de resíduos acumulados na pele.",
+  },
+  {
+    icone: "✨",
+    titulo: "Pele mais revitalizada",
+    texto: "Ajuda a devolver uma aparência mais viçosa e renovada.",
+  },
+  {
+    icone: "💧",
+    titulo: "Sensação de pele limpa",
+    texto: "Uma experiência de cuidado que deixa a pele com sensação de frescor.",
+  },
+  {
+    icone: "🌿",
+    titulo: "Auxilia no controle da oleosidade",
+    texto: "Contribui para uma aparência mais equilibrada da pele.",
+  },
+  {
+    icone: "🔍",
+    titulo: "Desobstrução dos poros",
+    texto: "Ajuda no cuidado com cravos e impurezas.",
+  },
+  {
+    icone: "💆‍♀️",
+    titulo: "Momento de autocuidado",
+    texto: "Reserve um momento para cuidar da sua pele e de você.",
+  },
+];
+
+const etapas = [
+  {
+    n: "01",
+    titulo: "Avaliação",
+    texto: "A profissional Ana Paula entende as necessidades da sua pele.",
+  },
+  {
+    n: "02",
+    titulo: "Cuidado",
+    texto: "É realizado o procedimento de acordo com as características da sua pele.",
+  },
+  {
+    n: "03",
+    titulo: "Resultado",
+    texto: "Você sai com aquela sensação de pele limpa, cuidada e renovada.",
+  },
+];
+
+const faq = [
+  {
+    q: "Preciso saber qual limpeza de pele é indicada para mim?",
+    a: "Não. Durante o atendimento, a profissional poderá avaliar as características e necessidades da sua pele.",
+  },
+  { q: "Quanto tempo dura o procedimento?", a: siteConfig.duracaoProcedimento },
+  {
+    q: "A limpeza de pele serve para qualquer tipo de pele?",
+    a: "Cada pele possui características e necessidades diferentes. Por isso, o atendimento deve considerar a avaliação individual.",
+  },
+  { q: "Preciso agendar?", a: "Sim. Os atendimentos são realizados mediante agendamento." },
+  {
+    q: "Como faço para agendar?",
+    a: "É simples. Clique no botão do WhatsApp e fale com a equipe da Estética Perin.",
+  },
+  {
+    q: "Onde fica a Estética Perin?",
+    a: "Santo André - SP. O endereço completo pode ser informado pelo WhatsApp após o contato.",
+  },
+];
+
+function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <h2 className="text-balance text-3xl font-medium leading-tight text-foreground sm:text-4xl md:text-[2.75rem]">
+      {children}
+    </h2>
+  );
+}
+
+function Micro({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card/70 px-3 py-1.5 text-xs text-muted-foreground">
+      {children}
+    </span>
+  );
+}
+
+function LandingPage() {
+  useEffect(() => {
+    initMetaPixel();
+  }, []);
+
+  return (
+    <main className="overflow-x-hidden">
+      {/* 1 — HERO ---------------------------------------------------- */}
+      <section className="relative bg-nude-gradient">
+        <div className="mx-auto grid max-w-6xl gap-10 px-5 pb-14 pt-10 md:grid-cols-2 md:items-center md:gap-14 md:px-8 md:pb-20 md:pt-16">
+          <div className="order-2 md:order-1">
+            <Reveal>
+              <p className="eyebrow text-gold-gradient">
+                {siteConfig.marca} • Santo André
+              </p>
+              <h1 className="mt-4 text-balance text-4xl font-medium leading-[1.08] sm:text-5xl md:text-6xl">
+                ✨ Sua pele merece <em className="not-italic text-gold-gradient">esse cuidado.</em>
+              </h1>
+              <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
+                Limpeza de pele profissional para remover impurezas, revitalizar a pele e devolver
+                aquele aspecto de pele limpa, saudável e radiante.
+              </p>
+            </Reveal>
+
+            <Reveal delay={120}>
+              <div className="mt-7 rounded-3xl border border-gold-soft bg-card/80 p-5 shadow-soft backdrop-blur-sm">
+                <span className="eyebrow rounded-full bg-nude px-3 py-1 text-accent-foreground">
+                  Condição especial
+                </span>
+                <p className="mt-3 font-display text-2xl leading-snug text-foreground sm:text-3xl">
+                  {siteConfig.ofertaHero}
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={200}>
+              <div className="mt-6">
+                <CtaWhatsapp origem="hero" pulse>
+                  💬 QUERO AGENDAR PELO WHATSAPP
+                </CtaWhatsapp>
+                <p className="mt-4 text-sm font-medium text-foreground">📍 Santo André - SP</p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Atendimento personalizado com {siteConfig.profissional}.
+                </p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  <Micro>💬 Atendimento pelo WhatsApp</Micro>
+                  <Micro>✨ Atendimento personalizado</Micro>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+
+          <div className="order-1 md:order-2">
+            <div className="relative overflow-hidden rounded-[2rem] shadow-lift">
+              <img
+                src={heroImg}
+                width={1200}
+                height={1504}
+                alt="Mulher com pele limpa e iluminada após limpeza de pele na Estética Perin em Santo André"
+                className="h-[340px] w-full object-cover object-top sm:h-[440px] md:h-[560px]"
+                fetchPriority="high"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2 — PROBLEMA ------------------------------------------------ */}
+      <section className="mx-auto max-w-5xl px-5 py-16 md:px-8 md:py-24">
+        <Reveal className="text-center">
+          <SectionTitle>
+            Você sente que sua pele está precisando de um cuidado especial?
+          </SectionTitle>
+          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+            Com a rotina, poluição, oleosidade e acúmulo de impurezas, a pele pode perder o viço e
+            ficar com uma aparência cansada.
+          </p>
+        </Reveal>
+
+        <ul className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {problemas.map((p, i) => (
+            <Reveal as="li" key={p} delay={i * 70}>
+              <div className="flex h-full items-center gap-3 rounded-2xl border border-border bg-card p-4 shadow-soft">
+                <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-nude text-sm text-accent-foreground">
+                  ✓
+                </span>
+                <span className="text-sm font-medium sm:text-base">{p}</span>
+              </div>
+            </Reveal>
+          ))}
+        </ul>
+
+        <Reveal className="mt-10 text-center">
+          <p className="font-display text-xl text-foreground sm:text-2xl">
+            Talvez esteja na hora de dar à sua pele a atenção que ela merece.
+          </p>
+          <div className="mt-6 flex justify-center">
+            <CtaWhatsapp origem="secao-problema" size="md">
+              💬 QUERO CUIDAR DA MINHA PELE
+            </CtaWhatsapp>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* 3 — BENEFÍCIOS ---------------------------------------------- */}
+      <section className="bg-secondary/60 py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <Reveal className="text-center">
+            <SectionTitle>✨ Mais do que uma limpeza. Um momento para cuidar de você.</SectionTitle>
+            <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+              A limpeza de pele é um procedimento pensado para auxiliar na remoção de impurezas e
+              proporcionar uma aparência mais limpa, revitalizada e saudável.
+            </p>
+          </Reveal>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {beneficios.map((b, i) => (
+              <Reveal key={b.titulo} delay={i * 70}>
+                <article className="h-full rounded-3xl border border-border bg-card p-6 shadow-soft transition-transform duration-300 hover:-translate-y-1">
+                  <span className="text-2xl" aria-hidden>
+                    {b.icone}
+                  </span>
+                  <h3 className="mt-3 text-xl font-medium">{b.titulo}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{b.texto}</p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal className="mt-10 flex justify-center">
+            <CtaWhatsapp origem="secao-beneficios">QUERO AGENDAR MINHA LIMPEZA</CtaWhatsapp>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 4 — COMO FUNCIONA ------------------------------------------- */}
+      <section className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
+        <Reveal className="text-center">
+          <SectionTitle>Como funciona o seu atendimento?</SectionTitle>
+        </Reveal>
+
+        <div className="mt-10 grid gap-4 md:grid-cols-3">
+          {etapas.map((e, i) => (
+            <Reveal key={e.n} delay={i * 90}>
+              <div className="h-full rounded-3xl border border-gold-soft bg-card p-7 shadow-soft">
+                <span className="font-display text-4xl text-gold-gradient">{e.n}</span>
+                <h3 className="eyebrow mt-4 text-foreground">{e.titulo}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{e.texto}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal className="mt-8 text-center text-sm text-muted-foreground">
+          <p>
+            Cada pele possui necessidades diferentes. O atendimento é personalizado de acordo com a
+            avaliação profissional.
+          </p>
+        </Reveal>
+      </section>
+
+      {/* 5 — RESULTADOS / FOTOS -------------------------------------- */}
+      <section className="bg-nude-gradient py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <Reveal className="text-center">
+            <SectionTitle>✨ Veja a diferença que o cuidado pode fazer</SectionTitle>
+            <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground">
+              Imagens demonstrativas — espaço preparado para substituição pelas fotos reais da
+              Estética Perin.
+            </p>
+          </Reveal>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { img: antesImg, label: "ANTES", alt: "Espaço para foto real — antes do procedimento" },
+              { img: depoisImg, label: "DEPOIS", alt: "Espaço para foto real — depois do procedimento" },
+              { img: procedureImg, label: "PROCEDIMENTO", alt: "Espaço para foto real do procedimento de limpeza de pele" },
+              { img: clinicImg, label: "A CLÍNICA", alt: "Espaço para foto real do espaço da Estética Perin" },
+            ].map((item, i) => (
+              <Reveal key={item.label} delay={i * 80}>
+                <figure className="overflow-hidden rounded-3xl bg-card shadow-soft">
+                  <img
+                    src={item.img}
+                    alt={item.alt}
+                    loading="lazy"
+                    className="h-56 w-full object-cover sm:h-64"
+                  />
+                  <figcaption className="eyebrow px-4 py-3 text-muted-foreground">
+                    {item.label}
+                  </figcaption>
+                </figure>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal className="mt-6 text-center text-xs text-muted-foreground">
+            <p>Resultados podem variar de acordo com cada pele e procedimento realizado.</p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 6 — ANA PAULA ------------------------------------------------ */}
+      <section className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
+        <div className="grid gap-8 md:grid-cols-2 md:items-center md:gap-14">
+          <Reveal>
+            <img
+              src={professionalImg}
+              width={1024}
+              height={1280}
+              loading="lazy"
+              alt="Ana Paula, profissional responsável pelos atendimentos da Estética Perin"
+              className="h-[380px] w-full rounded-[2rem] object-cover shadow-lift sm:h-[460px]"
+            />
+            <p className="mt-2 text-center text-xs text-muted-foreground">
+              Imagem demonstrativa — substituir pela foto real da profissional.
+            </p>
+          </Reveal>
+
+          <Reveal delay={100}>
+            <p className="eyebrow text-gold-gradient">A profissional</p>
+            <SectionTitle>Conheça Ana Paula</SectionTitle>
+            <p className="mt-4 text-muted-foreground">
+              Seu atendimento será realizado por Ana Paula, profissional responsável pelos
+              atendimentos da Estética Perin em Santo André.
+            </p>
+
+            <ul className="mt-6 grid gap-2 text-sm">
+              {[
+                ["Formação", siteConfig.profissionalInfo.formacao],
+                ["Especializações", siteConfig.profissionalInfo.especializacoes],
+                ["Cursos", siteConfig.profissionalInfo.cursos],
+                ["Experiência", siteConfig.profissionalInfo.experiencia],
+              ].map(([label, value]) => (
+                <li
+                  key={label}
+                  className="flex flex-wrap gap-x-2 rounded-2xl border border-border bg-card px-4 py-3"
+                >
+                  <span className="font-medium">{label}:</span>
+                  <span className="text-muted-foreground">{value}</span>
+                </li>
+              ))}
+            </ul>
+
+            <p className="mt-6 font-display text-xl">
+              Seu cuidado começa com um atendimento personalizado e atenção aos detalhes.
+            </p>
+
+            <div className="mt-6">
+              <CtaWhatsapp origem="secao-ana-paula" size="md">
+                💬 FALAR COM A ANA PAULA
+              </CtaWhatsapp>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 7 — OFERTA --------------------------------------------------- */}
+      <section className="bg-nude py-16 md:py-24">
+        <div className="mx-auto max-w-3xl px-5 text-center md:px-8">
+          <Reveal>
+            <SectionTitle>🔥 Condição especial para você cuidar da sua pele</SectionTitle>
+          </Reveal>
+
+          <Reveal delay={100}>
+            <div className="mt-8 rounded-[2rem] border border-gold-soft bg-card p-7 shadow-lift sm:p-10">
+              <p className="eyebrow text-muted-foreground">Limpeza de pele</p>
+
+              {siteConfig.precoOferta ? (
+                <div className="mt-4">
+                  {siteConfig.precoNormal && (
+                    <p className="text-base text-muted-foreground line-through">
+                      {siteConfig.precoNormal}
+                    </p>
+                  )}
+                  <p className="font-display text-5xl text-gold-gradient sm:text-6xl">
+                    {siteConfig.precoOferta}
+                  </p>
+                </div>
+              ) : (
+                <p className="mt-4 font-display text-3xl text-gold-gradient sm:text-4xl">
+                  CONSULTE A CONDIÇÃO ESPECIAL
+                </p>
+              )}
+
+              <p className="mt-4 text-sm font-medium">📍 Santo André - SP</p>
+
+              <div className="mt-7 flex justify-center">
+                <CtaWhatsapp origem="secao-oferta" pulse>
+                  💬 QUERO GARANTIR MEU HORÁRIO
+                </CtaWhatsapp>
+              </div>
+
+              <p className="mt-4 text-sm text-muted-foreground">Atendimento mediante agendamento.</p>
+
+              {siteConfig.avisoHorarios && (
+                <p className="mt-3 text-sm font-medium text-foreground">
+                  {siteConfig.avisoHorarios}
+                </p>
+              )}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 8 — DEPOIMENTOS ---------------------------------------------- */}
+      <section className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
+        <Reveal className="text-center">
+          <SectionTitle>💖 O que nossas clientes dizem</SectionTitle>
+          <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground">
+            Espaço preparado para depoimentos reais, avaliações e prints do WhatsApp ou Instagram.
+          </p>
+        </Reveal>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {siteConfig.depoimentos.map((d, i) => (
+            <Reveal key={i} delay={i * 80}>
+              <blockquote className="h-full rounded-3xl border border-border bg-card p-6 shadow-soft">
+                <p className="text-gold-gradient" aria-hidden>
+                  ★★★★★
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">"{d.texto}"</p>
+                <footer className="mt-4 text-sm font-medium">— {d.nome}</footer>
+              </blockquote>
+            </Reveal>
+          ))}
+          <Reveal delay={240}>
+            <div className="flex h-full min-h-40 items-center justify-center rounded-3xl border border-dashed border-gold-soft bg-secondary/50 p-6 text-center text-sm text-muted-foreground">
+              Espaço para prints reais de avaliações do WhatsApp ou Instagram.
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 9 — FAQ ------------------------------------------------------ */}
+      <section className="bg-secondary/60 py-16 md:py-24">
+        <div className="mx-auto max-w-3xl px-5 md:px-8">
+          <Reveal className="text-center">
+            <SectionTitle>Dúvidas frequentes</SectionTitle>
+          </Reveal>
+          <div className="mt-8 space-y-3">
+            {faq.map((item, i) => (
+              <Reveal key={item.q} delay={i * 50}>
+                <FaqItem question={item.q} answer={item.a} />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 10 — CTA FINAL ----------------------------------------------- */}
+      <section className="bg-nude-gradient py-20 md:py-28">
+        <div className="mx-auto max-w-2xl px-5 text-center md:px-8">
+          <Reveal>
+            <SectionTitle>✨ Está na hora de cuidar da sua pele.</SectionTitle>
+            <p className="mt-4 text-muted-foreground">
+              Reserve um momento para você e descubra a condição especial disponível para a sua
+              limpeza de pele.
+            </p>
+            <div className="mt-8 flex justify-center">
+              <CtaWhatsapp origem="cta-final" pulse className="py-6 text-lg">
+                💬 QUERO AGENDAR PELO WHATSAPP
+              </CtaWhatsapp>
+            </div>
+            <p className="mt-4 text-sm font-medium">Atendimento em Santo André - SP</p>
+            <div className="mt-6 flex flex-wrap justify-center gap-2">
+              <Micro>📍 Santo André - SP</Micro>
+              <Micro>🔒 Seus dados serão utilizados apenas para atendimento</Micro>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <footer className="border-t border-border bg-background py-8 text-center text-xs text-muted-foreground">
+        <p className="font-display text-base text-foreground">Estética Perin</p>
+        <p className="mt-1">Limpeza de pele em Santo André - SP • Atendimento com Ana Paula</p>
+      </footer>
+
+      <div className="h-16" aria-hidden />
+      <FloatingWhatsapp />
+    </main>
+  );
+}
+
+function FaqItem({ question, answer }: { question: string; answer: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-sm font-medium transition-colors hover:bg-secondary/60 sm:text-base"
+      >
+        {question}
+        <span
+          aria-hidden
+          className={`shrink-0 text-lg transition-transform duration-300 ${open ? "rotate-45" : ""}`}
+        >
+          +
+        </span>
+      </button>
+      <div
+        className={`grid transition-all duration-300 ease-out ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+      >
+        <div className="overflow-hidden">
+          <p className="px-5 pb-5 text-sm leading-relaxed text-muted-foreground">{answer}</p>
+        </div>
+      </div>
     </div>
   );
 }
