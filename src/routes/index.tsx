@@ -391,10 +391,10 @@ function LandingPage() {
             <img
               src={anaPaulaAsset.url}
               width={900}
-              height={1600}
+              height={1043}
               loading="lazy"
               alt="Ana Paula, Biomédica Esteta e profissional responsável pelos atendimentos da Estética Perin"
-              className="h-[380px] w-full rounded-[2rem] object-cover object-top shadow-lift sm:h-[460px]"
+              className="aspect-[900/1043] w-full rounded-[2rem] object-cover object-top shadow-lift"
             />
           </Reveal>
 
