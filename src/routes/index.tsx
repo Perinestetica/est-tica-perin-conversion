@@ -286,6 +286,45 @@ function LandingPage() {
         </div>
       </section>
 
+      {/* 3.5 — TIPOS DE LIMPEZA DE PELE ------------------------------ */}
+      <section className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
+        <Reveal className="text-center">
+          <SectionTitle>✨ Encontre o cuidado ideal para a sua pele</SectionTitle>
+          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+            Na Estética Perin, você encontra diferentes opções de limpeza de pele para cuidar da
+            sua pele de forma personalizada.
+          </p>
+        </Reveal>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {tiposLimpeza.map((t, i) => (
+            <Reveal key={t.titulo} delay={i * 70}>
+              <article className="h-full rounded-3xl border border-border bg-card p-6 shadow-soft transition-transform duration-300 hover:-translate-y-1">
+                <h3 className="text-lg font-medium leading-snug">
+                  <span className="mr-1.5" aria-hidden>
+                    {t.icone}
+                  </span>
+                  {t.titulo}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t.texto}</p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal className="mt-8 text-center">
+          <p className="mx-auto max-w-2xl text-sm text-muted-foreground">
+            Durante o atendimento, Ana Paula poderá orientar sobre o protocolo mais adequado para
+            as necessidades da sua pele.
+          </p>
+          <div className="mt-6 flex justify-center">
+            <CtaWhatsapp origem="secao-tipos-limpeza">
+              💬 QUERO SABER QUAL É O IDEAL PARA MIM
+            </CtaWhatsapp>
+          </div>
+        </Reveal>
+      </section>
+
       {/* 4 — COMO FUNCIONA ------------------------------------------- */}
       <section className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
         <Reveal className="text-center">
