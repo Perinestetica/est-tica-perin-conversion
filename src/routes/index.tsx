@@ -2,11 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 import heroImg from "@/assets/hero-skin.jpg";
-import procedureImg from "@/assets/procedure.jpg";
-import professionalImg from "@/assets/professional.jpg";
-import clinicImg from "@/assets/clinic.jpg";
-import antesImg from "@/assets/antes.jpg";
-import depoisImg from "@/assets/depois.jpg";
+import anaPaulaAsset from "@/assets/ana-paula.jpg.asset.json";
 
 import { CtaWhatsapp, FloatingWhatsapp } from "@/components/CtaWhatsapp";
 import { Reveal } from "@/components/Reveal";
@@ -40,8 +36,10 @@ export const Route = createFileRoute("/")({
           description: DESCRIPTION,
           address: {
             "@type": "PostalAddress",
+            streetAddress: "Av. Industrial, 1680 - Torre 1",
             addressLocality: "Santo André",
             addressRegion: "SP",
+            postalCode: "09080-501",
             addressCountry: "BR",
           },
           areaServed: "Santo André - SP",
@@ -193,7 +191,7 @@ function LandingPage() {
                 <CtaWhatsapp origem="hero" pulse>
                   💬 QUERO AGENDAR PELO WHATSAPP
                 </CtaWhatsapp>
-                <p className="mt-4 text-sm font-medium text-foreground">📍 Santo André - SP</p>
+                <p className="mt-4 text-sm font-medium text-foreground">📍 {siteConfig.cidade}</p>
                 <p className="mt-1 text-sm text-muted-foreground">
                   Atendimento personalizado com {siteConfig.profissional}.
                 </p>
