@@ -461,12 +461,6 @@ function LandingPage() {
               </div>
 
               <p className="mt-4 text-sm text-muted-foreground">Atendimento mediante agendamento.</p>
-
-              {siteConfig.avisoHorarios && (
-                <p className="mt-3 text-sm font-medium text-foreground">
-                  {siteConfig.avisoHorarios}
-                </p>
-              )}
             </div>
           </Reveal>
         </div>
