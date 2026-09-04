@@ -489,9 +489,6 @@ function LandingPage() {
       <section className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
         <Reveal className="text-center">
           <SectionTitle>💖 O que nossas clientes dizem</SectionTitle>
-          <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground">
-            Espaço preparado para depoimentos reais, avaliações e prints do WhatsApp ou Instagram.
-          </p>
         </Reveal>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -506,11 +503,6 @@ function LandingPage() {
               </blockquote>
             </Reveal>
           ))}
-          <Reveal delay={240}>
-            <div className="flex h-full min-h-40 items-center justify-center rounded-3xl border border-dashed border-gold-soft bg-secondary/50 p-6 text-center text-sm text-muted-foreground">
-              Espaço para prints reais de avaliações do WhatsApp ou Instagram.
-            </div>
-          </Reveal>
         </div>
       </section>
 
@@ -544,9 +536,9 @@ function LandingPage() {
                 💬 QUERO AGENDAR PELO WHATSAPP
               </CtaWhatsapp>
             </div>
-            <p className="mt-4 text-sm font-medium">Atendimento em Santo André - SP</p>
+            <p className="mt-4 text-sm font-medium">📍 {siteConfig.cidade}</p>
             <div className="mt-6 flex flex-wrap justify-center gap-2">
-              <Micro>📍 Santo André - SP</Micro>
+              <Micro>💬 Atendimento pelo WhatsApp</Micro>
               <Micro>🔒 Seus dados serão utilizados apenas para atendimento</Micro>
             </div>
           </Reveal>
@@ -555,7 +547,8 @@ function LandingPage() {
 
       <footer className="border-t border-border bg-background py-8 text-center text-xs text-muted-foreground">
         <p className="font-display text-base text-foreground">Estética Perin</p>
-        <p className="mt-1">Limpeza de pele em Santo André - SP • Atendimento com Ana Paula</p>
+        <p className="mt-1">Limpeza de pele • Atendimento com Ana Paula</p>
+        <p className="mt-1">📍 Av. Industrial, 1680 - Torre 1 - Torre 1, Santo André - SP, 09080-501</p>
       </footer>
 
       <div className="h-16" aria-hidden />
