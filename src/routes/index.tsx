@@ -96,6 +96,39 @@ const beneficios = [
   },
 ];
 
+const tiposLimpeza = [
+  {
+    icone: "🫧",
+    titulo: "Limpeza de Pele com Hidratação e Regeneração",
+    texto:
+      "Um cuidado que combina limpeza, hidratação e regeneração para proporcionar uma aparência mais viçosa, renovada e saudável.",
+  },
+  {
+    icone: "✨",
+    titulo: "Limpeza de Pele com Radiofrequência",
+    texto:
+      "Um protocolo que associa a limpeza de pele à radiofrequência, proporcionando uma experiência de cuidado e revitalização.",
+  },
+  {
+    icone: "🌿",
+    titulo: "Limpeza de Pele com Peeling Coreano",
+    texto:
+      "Um cuidado que combina limpeza de pele com peeling coreano, ajudando a melhorar a aparência e a textura da pele.",
+  },
+  {
+    icone: "💎",
+    titulo: "Limpeza de Pele com Microagulhamento",
+    texto:
+      "Um protocolo que associa a limpeza de pele ao microagulhamento, com foco no cuidado personalizado e na revitalização da pele.",
+  },
+  {
+    icone: "🫧",
+    titulo: "Limpeza de Pele Tradicional",
+    texto:
+      "Uma opção de cuidado para auxiliar na remoção de impurezas e proporcionar uma sensação de pele limpa e renovada.",
+  },
+];
+
 const etapas = [
   {
     n: "01",
@@ -351,61 +384,18 @@ function LandingPage() {
         </Reveal>
       </section>
 
-      {/* 5 — RESULTADOS / FOTOS -------------------------------------- */}
+      {/* 5 — ANA PAULA ------------------------------------------------ */}
       <section className="bg-nude-gradient py-16 md:py-24">
-        <div className="mx-auto max-w-6xl px-5 md:px-8">
-          <Reveal className="text-center">
-            <SectionTitle>✨ Veja a diferença que o cuidado pode fazer</SectionTitle>
-            <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground">
-              Imagens demonstrativas — espaço preparado para substituição pelas fotos reais da
-              Estética Perin.
-            </p>
-          </Reveal>
-
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { img: antesImg, label: "ANTES", alt: "Espaço para foto real — antes do procedimento" },
-              { img: depoisImg, label: "DEPOIS", alt: "Espaço para foto real — depois do procedimento" },
-              { img: procedureImg, label: "PROCEDIMENTO", alt: "Espaço para foto real do procedimento de limpeza de pele" },
-              { img: clinicImg, label: "A CLÍNICA", alt: "Espaço para foto real do espaço da Estética Perin" },
-            ].map((item, i) => (
-              <Reveal key={item.label} delay={i * 80}>
-                <figure className="overflow-hidden rounded-3xl bg-card shadow-soft">
-                  <img
-                    src={item.img}
-                    alt={item.alt}
-                    loading="lazy"
-                    className="h-56 w-full object-cover sm:h-64"
-                  />
-                  <figcaption className="eyebrow px-4 py-3 text-muted-foreground">
-                    {item.label}
-                  </figcaption>
-                </figure>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal className="mt-6 text-center text-xs text-muted-foreground">
-            <p>Resultados podem variar de acordo com cada pele e procedimento realizado.</p>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 6 — ANA PAULA ------------------------------------------------ */}
-      <section className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
-        <div className="grid gap-8 md:grid-cols-2 md:items-center md:gap-14">
+        <div className="mx-auto grid max-w-6xl gap-8 px-5 md:grid-cols-2 md:items-center md:gap-14 md:px-8">
           <Reveal>
             <img
-              src={professionalImg}
-              width={1024}
-              height={1280}
+              src={anaPaulaAsset.url}
+              width={900}
+              height={1600}
               loading="lazy"
-              alt="Ana Paula, profissional responsável pelos atendimentos da Estética Perin"
-              className="h-[380px] w-full rounded-[2rem] object-cover shadow-lift sm:h-[460px]"
+              alt="Ana Paula, Biomédica Esteta e profissional responsável pelos atendimentos da Estética Perin"
+              className="h-[380px] w-full rounded-[2rem] object-cover object-top shadow-lift sm:h-[460px]"
             />
-            <p className="mt-2 text-center text-xs text-muted-foreground">
-              Imagem demonstrativa — substituir pela foto real da profissional.
-            </p>
           </Reveal>
 
           <Reveal delay={100}>
@@ -419,9 +409,10 @@ function LandingPage() {
             <ul className="mt-6 grid gap-2 text-sm">
               {[
                 ["Formação", siteConfig.profissionalInfo.formacao],
-                ["Especializações", siteConfig.profissionalInfo.especializacoes],
-                ["Cursos", siteConfig.profissionalInfo.cursos],
+                ["Especialização", siteConfig.profissionalInfo.especializacoes],
+                ["Foco", siteConfig.profissionalInfo.cursos],
                 ["Experiência", siteConfig.profissionalInfo.experiencia],
+                ["Atendimento", siteConfig.profissionalInfo.protocolos],
               ].map(([label, value]) => (
                 <li
                   key={label}
