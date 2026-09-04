@@ -448,24 +448,11 @@ function LandingPage() {
             <div className="mt-8 rounded-[2rem] border border-gold-soft bg-card p-7 shadow-lift sm:p-10">
               <p className="eyebrow text-muted-foreground">Limpeza de pele</p>
 
-              {siteConfig.precoOferta ? (
-                <div className="mt-4">
-                  {siteConfig.precoNormal && (
-                    <p className="text-base text-muted-foreground line-through">
-                      {siteConfig.precoNormal}
-                    </p>
-                  )}
-                  <p className="font-display text-5xl text-gold-gradient sm:text-6xl">
-                    {siteConfig.precoOferta}
-                  </p>
-                </div>
-              ) : (
-                <p className="mt-4 font-display text-3xl text-gold-gradient sm:text-4xl">
-                  CONSULTE A CONDIÇÃO ESPECIAL
-                </p>
-              )}
+              <p className="mt-4 font-display text-4xl text-gold-gradient sm:text-5xl">
+                ✨ A partir de R$ 190
+              </p>
 
-              <p className="mt-4 text-sm font-medium">📍 Santo André - SP</p>
+              <p className="mt-4 text-sm font-medium">📍 {siteConfig.cidade}</p>
 
               <div className="mt-7 flex justify-center">
                 <CtaWhatsapp origem="secao-oferta" pulse>
