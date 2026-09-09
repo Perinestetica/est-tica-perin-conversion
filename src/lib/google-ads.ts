@@ -28,8 +28,8 @@ export function trackGoogleAdsConversion(
 
   const payload: Record<string, unknown> = { send_to: sendTo };
   if (typeof value === "number") {
-    payload.value = value;
-    payload.currency = currency;
+    payload["value"] = value;
+    payload["currency"] = currency;
   }
 
   window.gtag("event", "conversion", payload);
