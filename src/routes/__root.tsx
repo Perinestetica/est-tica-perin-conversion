@@ -92,11 +92,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "preconnect", href: "https://www.googletagmanager.com" },
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap",
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+    ],
+    scripts: [
+      {
+        src: "https://www.googletagmanager.com/gtag/js?id=AW-10996614308",
+        async: true,
+      },
+      {
+        children:
+          "window.dataLayer = window.dataLayer || [];\n" +
+          "function gtag(){dataLayer.push(arguments);}\n" +
+          "gtag('js', new Date());\n" +
+          "gtag('config', 'AW-10996614308');",
+      },
     ],
   }),
 
