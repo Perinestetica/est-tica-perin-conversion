@@ -105,7 +105,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         async: true,
       },
       {
-        content:
+        children:
           "window.dataLayer = window.dataLayer || [];\n" +
           "function gtag(){dataLayer.push(arguments);}\n" +
           "gtag('js', new Date());\n" +
