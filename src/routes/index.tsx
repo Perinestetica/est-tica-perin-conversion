@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { MapPin } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import heroImg from "@/assets/hero-skin.jpg";
@@ -217,7 +218,10 @@ function LandingPage() {
 
             <Reveal delay={200}>
               <div className="mt-3 md:mt-5">
-                <p className="mb-3 text-sm font-medium text-foreground">📍 Santo André - SP</p>
+                <p className="mb-3 flex items-center gap-1.5 text-sm font-medium text-foreground">
+                  <MapPin aria-hidden className="size-4 shrink-0 text-gold" />
+                  Santo André - SP
+                </p>
                 <CtaWhatsapp origem="hero" pulse>
                   AGENDAR LIMPEZA DE PELE NO WHATSAPP
                 </CtaWhatsapp>

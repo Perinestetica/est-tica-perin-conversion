@@ -1,3 +1,5 @@
+import { MessageCircle } from "lucide-react";
+
 import { whatsappUrl } from "@/lib/site-config";
 import { trackWhatsappClick } from "@/lib/pixel";
 import { cn } from "@/lib/utils";
@@ -39,9 +41,7 @@ export function FloatingWhatsapp() {
       aria-label="Agendar limpeza de pele pelo WhatsApp"
       className="fixed inset-x-3 bottom-3 z-50 inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-whatsapp px-5 py-3 text-sm font-semibold text-whatsapp-foreground shadow-cta transition-transform duration-300 hover:-translate-y-0.5 sm:inset-x-auto sm:bottom-6 sm:right-6"
     >
-      <span aria-hidden className="text-xl leading-none">
-        💬
-      </span>
+      <MessageCircle aria-hidden className="size-5 shrink-0" />
       Agendar pelo WhatsApp
     </a>
   );
