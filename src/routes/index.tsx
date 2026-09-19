@@ -193,50 +193,42 @@ function LandingPage() {
     <main className="overflow-x-hidden">
       {/* 1 — HERO ---------------------------------------------------- */}
       <section className="relative bg-nude-gradient">
-        <div className="mx-auto grid max-w-6xl gap-10 px-5 pb-14 pt-10 md:grid-cols-2 md:items-center md:gap-14 md:px-8 md:pb-20 md:pt-16">
-          <div className="order-2 md:order-1">
+        <div className="mx-auto grid min-h-[calc(100svh-4.5rem)] max-w-6xl items-center gap-10 px-5 py-5 md:min-h-0 md:grid-cols-2 md:gap-14 md:px-8 md:py-16">
+          <div>
             <Reveal>
-              <p className="eyebrow text-gold-gradient">
-                {siteConfig.marca} • Santo André
-              </p>
-              <h1 className="mt-4 text-balance text-4xl font-medium leading-[1.08] sm:text-5xl md:text-6xl">
-                ✨ Sua pele merece <em className="not-italic text-gold-gradient">esse cuidado.</em>
+              <p className="eyebrow text-gold-gradient">{siteConfig.marca}</p>
+              <h1 className="mt-2 text-balance text-[2.35rem] font-medium leading-[1.02] sm:text-5xl md:mt-4 md:text-6xl">
+                Limpeza de Pele em Santo André
               </h1>
-              <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-                Limpeza de pele profissional para remover impurezas, revitalizar a pele e devolver
-                aquele aspecto de pele limpa, saudável e radiante.
+              <p className="mt-2 max-w-lg text-base font-medium leading-snug text-foreground sm:text-lg md:mt-4">
+                Atendimento personalizado com Biomédica Esteta
               </p>
             </Reveal>
 
             <Reveal delay={120}>
-              <div className="mt-7 rounded-3xl border border-gold-soft bg-card/80 p-5 shadow-soft backdrop-blur-sm">
-                <span className="eyebrow rounded-full bg-nude px-3 py-1 text-accent-foreground">
-                  Condição especial
-                </span>
-                <p className="mt-3 font-display text-2xl leading-snug text-foreground sm:text-3xl">
-                  {siteConfig.ofertaHero}
-                </p>
-              </div>
+              <p className="mt-3 font-display text-3xl font-medium text-gold-gradient sm:text-4xl md:mt-6">
+                A partir de R$ 190
+              </p>
+              <p className="mt-2 max-w-lg text-sm leading-snug text-muted-foreground md:mt-3 md:leading-relaxed">
+                Procedimento indicado conforme as necessidades da sua pele, com atendimento mediante
+                agendamento.
+              </p>
             </Reveal>
 
             <Reveal delay={200}>
-              <div className="mt-6">
+              <div className="mt-3 md:mt-5">
+                <p className="mb-3 text-sm font-medium text-foreground">📍 Santo André - SP</p>
                 <CtaWhatsapp origem="hero" pulse>
-                  💬 QUERO AGENDAR PELO WHATSAPP
+                  AGENDAR LIMPEZA DE PELE NO WHATSAPP
                 </CtaWhatsapp>
-                <p className="mt-4 text-sm font-medium text-foreground">📍 {siteConfig.cidade}</p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Atendimento personalizado com {siteConfig.profissional}.
+                <p className="mt-2 text-center text-xs text-muted-foreground sm:text-left">
+                  Consulte horários disponíveis pelo WhatsApp.
                 </p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  <Micro>💬 Atendimento pelo WhatsApp</Micro>
-                  <Micro>✨ Atendimento personalizado</Micro>
-                </div>
               </div>
             </Reveal>
           </div>
 
-          <div className="order-1 md:order-2">
+          <div className="hidden md:block">
             <div className="relative overflow-hidden rounded-[2rem] shadow-lift">
               <img
                 src={heroImg}
@@ -249,6 +241,22 @@ function LandingPage() {
             </div>
           </div>
         </div>
+      </section>
+
+      <section aria-label="Diferenciais do atendimento" className="border-y border-border bg-card">
+        <ul className="mx-auto grid max-w-5xl grid-cols-1 gap-px bg-border sm:grid-cols-3">
+          {["Atendimento em Santo André", "Procedimento personalizado", "Agendamento pelo WhatsApp"].map(
+            (item) => (
+              <li
+                key={item}
+                className="flex items-center justify-center gap-2 bg-card px-5 py-4 text-center text-sm font-medium"
+              >
+                <span className="text-gold" aria-hidden>✓</span>
+                {item}
+              </li>
+            ),
+          )}
+        </ul>
       </section>
 
       {/* 2 — PROBLEMA ------------------------------------------------ */}
@@ -317,45 +325,6 @@ function LandingPage() {
             <CtaWhatsapp origem="secao-beneficios">QUERO AGENDAR MINHA LIMPEZA</CtaWhatsapp>
           </Reveal>
         </div>
-      </section>
-
-      {/* 3.5 — TIPOS DE LIMPEZA DE PELE ------------------------------ */}
-      <section className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
-        <Reveal className="text-center">
-          <SectionTitle>✨ Encontre o cuidado ideal para a sua pele</SectionTitle>
-          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-            Na Estética Perin, você encontra diferentes opções de limpeza de pele para cuidar da
-            sua pele de forma personalizada.
-          </p>
-        </Reveal>
-
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {tiposLimpeza.map((t, i) => (
-            <Reveal key={t.titulo} delay={i * 70}>
-              <article className="h-full rounded-3xl border border-border bg-card p-6 shadow-soft transition-transform duration-300 hover:-translate-y-1">
-                <h3 className="text-lg font-medium leading-snug">
-                  <span className="mr-1.5" aria-hidden>
-                    {t.icone}
-                  </span>
-                  {t.titulo}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t.texto}</p>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal className="mt-8 text-center">
-          <p className="mx-auto max-w-2xl text-sm text-muted-foreground">
-            Durante o atendimento, Ana Paula poderá orientar sobre o protocolo mais adequado para
-            as necessidades da sua pele.
-          </p>
-          <div className="mt-6 flex justify-center">
-            <CtaWhatsapp origem="secao-tipos-limpeza">
-              💬 QUERO SABER QUAL É O IDEAL PARA MIM
-            </CtaWhatsapp>
-          </div>
-        </Reveal>
       </section>
 
       {/* 4 — COMO FUNCIONA ------------------------------------------- */}
@@ -463,6 +432,31 @@ function LandingPage() {
               <p className="mt-4 text-sm text-muted-foreground">Atendimento mediante agendamento.</p>
             </div>
           </Reveal>
+        </div>
+      </section>
+
+      {/* 7.5 — PROTOCOLOS SECUNDÁRIOS -------------------------------- */}
+      <section className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
+        <Reveal className="text-center">
+          <SectionTitle>Outros protocolos disponíveis após avaliação</SectionTitle>
+          <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground">
+            Se fizer sentido para as necessidades da sua pele, Ana Paula poderá orientar sobre
+            cuidados complementares durante a avaliação.
+          </p>
+        </Reveal>
+
+        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {tiposLimpeza.map((t, i) => (
+            <Reveal key={t.titulo} delay={i * 60}>
+              <article className="h-full rounded-2xl border border-border bg-card p-5">
+                <h3 className="text-base font-medium leading-snug">
+                  <span className="mr-1.5" aria-hidden>{t.icone}</span>
+                  {t.titulo}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t.texto}</p>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </section>
 

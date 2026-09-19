@@ -13,13 +13,14 @@ export const siteConfig = {
   /** Número do WhatsApp com DDI + DDD (somente números) */
   whatsapp: "5511976855329",
   mensagemWhatsapp:
-    "Olá! 😊 Vim pelo anúncio da Estética Perin e tenho interesse em agendar uma limpeza de pele. Gostaria de saber mais sobre a condição especial e os horários disponíveis.",
+    "Olá! Encontrei a Estética Perin pelo Google e gostaria de agendar uma limpeza de pele a partir de R$ 190. Quais horários estão disponíveis?",
 
   /** Frase da oferta no hero */
   ofertaHero: "Limpeza de Pele a partir de R$ 190",
 
   /** Duração real do procedimento (FAQ) */
-  duracaoProcedimento: "[INSERIR DURAÇÃO REAL DO PROCEDIMENTO]",
+  duracaoProcedimento:
+    "A duração pode variar conforme as necessidades da sua pele e o protocolo indicado. Consulte essa informação no momento do agendamento.",
 
   /** Dados da profissional */
   profissionalInfo: {

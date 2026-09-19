@@ -36,13 +36,13 @@ export function FloatingWhatsapp() {
       target="_blank"
       rel="noopener noreferrer"
       onClick={() => trackWhatsappClick("botao-flutuante")}
-      aria-label="Falar no WhatsApp com a Estética Perin"
-      className="fixed bottom-4 right-4 z-50 inline-flex items-center gap-3 rounded-full bg-whatsapp py-3 pl-4 pr-5 text-sm font-semibold text-whatsapp-foreground shadow-cta transition-transform duration-300 hover:-translate-y-0.5 sm:bottom-6 sm:right-6"
+      aria-label="Agendar limpeza de pele pelo WhatsApp"
+      className="fixed inset-x-3 bottom-3 z-50 inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-whatsapp px-5 py-3 text-sm font-semibold text-whatsapp-foreground shadow-cta transition-transform duration-300 hover:-translate-y-0.5 sm:inset-x-auto sm:bottom-6 sm:right-6"
     >
       <span aria-hidden className="text-xl leading-none">
         💬
       </span>
-      Fale conosco
+      Agendar pelo WhatsApp
     </a>
   );
 }
